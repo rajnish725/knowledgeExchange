@@ -1,0 +1,119 @@
+{
+  "feedbackQuestions": [
+    {
+      "question": "How likely are you going to use this service again?"
+    },
+    {
+      "question": "How likely are you to recommend your friends about it?"
+    },
+    {
+      "question": "From where did you learn about this service?"
+    },
+    {
+      "question": "What areas do you think we can improve upon?"
+    }
+  ],
+  "feedbackOptions": [
+    {
+      "option": "Unlikely"
+    },
+    {
+      "option": "Not Sure"
+    },
+    {
+      "option": "Likely"
+    },
+    {
+      "option": "Very Likely"
+    }
+  ],
+  "paymentOptions": [
+    {
+      "pay_mode": "Using Swipe/Insert Card"
+    },
+    {
+      "pay_mode": "Pay Online"
+    },
+    {
+      "pay_mode": "Pay by Cash"
+    },
+    {
+      "pay_mode": "Loyalty Emr"
+    }
+  ],
+  "homeMenuOptions": [
+    {
+      "option": "VERIFY ORDER"
+    },
+    {
+      "option": "SCAN FOR CUSTOMER"
+    },
+    {
+      "option": "SHOP BY CATALOG"
+    }
+  ],
+  "paymentBottom": [
+    {
+      "type": "CASH",
+      "amount": "$ 0.00",
+      "transaction": "0 Transactions"
+    },
+    {
+      "type": "CREDIT / DEBIT CARDS",
+      "amount": "$ 4100.00",
+      "transaction": "20 Transactions"
+    },
+    {
+      "type": "WALLETS",
+      "amount": "$ 0.00",
+      "transaction": "0 Transactions"
+    },
+    {
+      "type": "NET BANKING",
+      "amount": "$ 0.00",
+      "transaction": "0 Transactions"
+    }
+  ],
+  "dummyNames": [
+    {
+      "name": "Kalmesh Gurav"
+    },
+    {
+      "name": "Jayesh Joshi"
+    },
+    {
+      "name": "Anil Gorule"
+    },
+    {
+      "name": "Bhaskar Patil"
+    }
+  ],
+  "dummyNumbers": [
+    {
+      "number": "7776#####6"
+    },
+    {
+      "number": "8975#####3"
+    }
+  ],
+  "invoice_id": "Z8026001J4T00008",
+  "dummyDate": "09 APRIL 2018",
+  "dummyDateTime": "22 FEBRUARY 2018 00:02",
+  "settlementData": [
+    {
+      "type": "Credit / Debit Card",
+      "amount": "$ 99,999.00",
+      "transaction": "9,999"
+    },
+    {
+      "type": "WALLETS",
+      "amount": "$ 1,000.00",
+      "transaction": "22"
+    },
+    {
+      "type": "NET BANKING",
+      "amount": "$ 12,999.50",
+      "transaction": "500"
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+package in.royalguru.knowledgeExchange.modules.Dashboard.ui.home;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RatingBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+
+import in.kalmesh.projectbase.Debug;
+import in.royalguru.knowledgeExchange.R;
+import in.royalguru.knowledgeExchange.listeners.OnItemClickListener;
+
+import static in.royalguru.knowledgeExchange.enums.EnumClicks.CELL_CLICK;
+import static in.royalguru.knowledgeExchange.enums.EnumClicks.RATTING;
+
+/**
+ * Created by Kalmeshwar on 30 Sep 2019 at 13:11.
+ */
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
+    private static final String TAG = HomeAdapter.class.getSimpleName();
+    private OnItemClickListener itemClickListener;
+    private Context mContext;
+    private ArrayList<QuestionDataModel.QuestionModel> questionList;
+
+
+    public HomeAdapter(Context mContext, ArrayList<QuestionDataModel.QuestionModel> questionList, OnItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+        this.questionList = questionList;
+        this.mContext = mContext;
+
+    }
+
+    @NonNull
+    @Override
+    public HomeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.question_row, parent, false);
+
+        return new HomeHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull HomeHolder holder, int position) {
+
+        QuestionDataModel.QuestionModel questionModel = questionList.get(position);
+        holder.txt_question.setText(questionModel.getQuestion());
+        holder.txt_post_by.setText(questionModel.getPostedBy());
+
+        try {
+            if (questionModel.getRating() != null && !questionModel.getRating().isEmpty())
+                holder.ratingBar.setRating(Integer.parseInt(questionModel.getRating()));
+        } catch (Exception e) {
+            Debug.printLogError(TAG, "somethiong--------" + e.getMessage());
+        }
+
+
+        holder.itemView.setOnClickListener(v -> {
+            Debug.printLogError("tatt   ", holder.ratingBar.getRating() + "    number");
+            itemClickListener.onItemClickListener(CELL_CLICK, null, position, questionList.get(holder.getAdapterPosition()),
+                    "", null, false);
+//                itemClickListener.onItemClickListener(CELL_CLICK, null, position, holder.ratingBar.getNumStars(), null, null, false);
+
+        });
+
+        holder.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            public void onRatingChanged(RatingBar ratingBar, float rating,
+                                        boolean fromUser) {
+                Toast.makeText(mContext, "Your Selected Ratings  : " + String.valueOf(rating), Toast.LENGTH_LONG).show();
+                itemClickListener.onItemClickListener(RATTING, null, position, questionList.get(holder.getAdapterPosition()),
+                        rating, null, false);
+
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return questionList.size();
+    }
+
+    class HomeHolder extends RecyclerView.ViewHolder {
+        TextView txt_question, txt_post_by;
+
+
+        RatingBar ratingBar;
+
+        HomeHolder(@NonNull View itemView) {
+            super(itemView);
+
+            ratingBar = itemView.findViewById(R.id.ratingBar);
+            txt_question = itemView.findViewById(R.id.txt_question);
+            txt_post_by = itemView.findViewById(R.id.txt_post_by);
+
+        }
+    }
+}

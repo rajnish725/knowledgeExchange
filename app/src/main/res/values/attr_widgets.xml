@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="EditTextView">
+        <attr name="text_type" format="enum">
+            <enum name="numeric" value="0" />
+            <enum name="alpha_numeric" value="1" />
+            <enum name="alpha_numeric_password" value="2" />
+            <enum name="numeric_password" value="3" />
+            <enum name="email" value="4" />
+        </attr>
+        <attr name="visible_country_code" format="enum">
+            <enum name="visible" value="1" />
+            <enum name="hide" value="0" />
+        </attr>
+        <attr name="hint" format="string" />
+        <attr name="title" format="string" />
+        <attr name="bg_clr" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="SelectorLayout">
+        <attr name="selector_visibility" format="enum">
+            <enum name="visible" value="1" />
+            <enum name="hide" value="0" />
+        </attr>
+    </declare-styleable>
+</resources>

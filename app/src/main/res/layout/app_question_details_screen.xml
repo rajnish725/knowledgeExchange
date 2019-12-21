@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rel_question_details"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/top_main_header" />
+
+
+    <RelativeLayout
+        android:id="@+id/rel_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/include"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:paddingStart="@dimen/_4sdp"
+        android:paddingEnd="@dimen/_4sdp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_toStartOf="@+id/txt_qustion_no"
+            android:background="#ffffff" />
+
+
+        <TextView
+            android:id="@+id/txt_qustion_no"
+            style="@style/font_header_bold"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical"
+            android:text="01"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_8sdp" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_toEndOf="@+id/txt_qustion_no"
+            android:background="#ffffff" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txt_question"
+        style="@style/font_header_bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rel_line"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:ellipsize="end"
+        android:lineSpacingMultiplier="0.8"
+        android:maxLines="10"
+        android:padding="@dimen/_4sdp"
+        android:paddingBottom="@dimen/_4sdp"
+        android:text="@string/default_web_client_id"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12sdp" />
+
+    <RelativeLayout
+        android:id="@+id/rel_checkbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_question"
+
+        android:layout_marginTop="@dimen/_10sdp"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/txt_do_have_q"
+            style="@style/font_header_bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:text="Do you have Answer ?"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_8sdp" />
+
+        <CheckBox
+            android:id="@+id/checkbox_yes"
+            style="@style/font_header_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_below="@+id/txt_do_have_q"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:backgroundTint="@color/white"
+            android:text="Yes"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_8sdp" />
+
+        <!--
+                <CheckBox
+                    android:id="@+id/checkbox_no"
+                    style="@style/font_header_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_below="@+id/txt_do_have_q"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_toEndOf="@+id/checkbox_yes"
+                    android:backgroundTint="@color/white"
+                    android:text="Yes"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_8sdp" />-->
+
+
+        <EditText
+
+            android:id="@+id/edt_answer"
+            style="@style/font_roboto_medium"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_below="@+id/checkbox_yes"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/bg_grey_lighter_sld_rounded"
+            android:gravity="start"
+            android:hint="start typing"
+            android:maxLines="10"
+            android:paddingStart="@dimen/_4sdp"
+            android:paddingTop="@dimen/_2sdp"
+            android:textColor="@color/black2"
+            android:textSize="@dimen/_9sdp"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+
+        <Button
+            android:id="@+id/btn_save"
+            style="@style/font_header_bold"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_below="@+id/edt_answer"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/ripple_grey_bottom_btn_rounded"
+            android:text="save"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_8sdp"
+            android:visibility="gone"
+            tools:visibility="visible" />
+    </RelativeLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_answer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rel_checkbox"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:minHeight="@dimen/_30sdp"
+        android:visibility="gone"
+        tools:listitem="@layout/answer_row"
+        tools:visibility="visible" />
+
+</RelativeLayout>

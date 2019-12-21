@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Knowledge exchange</string>
+
+    <!--Authentication flow-->
+    <string name="and_symbol">&amp;</string>
+
+    <string name="server_client_id">595295312871-inblianhurhf4211q3nnl55psl2ks37t.apps.googleusercontent.com</string>
+    <string name="terms_conditions">Terms &amp; Conditions</string>
+    <string name="save_n_continue">Save &amp; Continue</string>
+
+    <string name="resendcode">Resend OTP in</string>
+    <string name="demo_text">इसके साथ समस्या यह है कि रेटिंगबार अभी भी उतनी ही चौड़ाई और ऊँचाई लेता है, जितना कि आइकॉन के छोटे होने के बावजूद। यह पहले और अंतिम माउस के बगल में बाएँ और दाएँ गद्दी का एक गुच्छा है क्योंकि यह संरेखण मुद्दों का कारण बनता है। उदाहरण के लिए, यदि आप इस "XXXXX" की तरह अपने आइकन चाहते हैं, तो स्केलिंग के बाद यह इस तरह दिखाई देगा </string>
+    <string name="resendcode_txt">Resend OTP</string>
+
+    <!--Common Strings-->
+    <string name="slow_internet_msg">It seems Internet connection is slow</string>
+    <string name="noInterAvailable_text">No internet available</string>
+</resources>
