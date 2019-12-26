@@ -29,6 +29,7 @@ import in.royalguru.knowledgeExchange.modules.Dashboard.ui.home.QuestionDataMode
 import in.royalguru.knowledgeExchange.retrofit.APICallBack;
 import in.royalguru.knowledgeExchange.retrofit.APIService;
 import in.royalguru.knowledgeExchange.retrofit.ServerConstants;
+import in.royalguru.knowledgeExchange.sessiondata.SessionManager;
 import in.royalguru.knowledgeExchange.sqlite.DatabaseHandler;
 import in.royalguru.knowledgeExchange.utils.EventBusData;
 import in.royalguru.knowledgeExchange.utils.Utility;
@@ -115,9 +116,10 @@ public class QuestionDetailsActivity extends AppActivity implements View.OnClick
 
 
         btn_save.setOnClickListener(v -> {
-            if (Validator.getInstance().isNotEmpty(edt_answer.getText().toString().trim())) {
-                addQuestionApi(qus_id, edt_answer.getText().toString().trim());
-            }
+            if (SessionManager.getInstance(mContext).isLoggedIn())
+                if (Validator.getInstance().isNotEmpty(edt_answer.getText().toString().trim())) {
+                    addQuestionApi(qus_id, edt_answer.getText().toString().trim());
+                }
         });
 
 
@@ -129,7 +131,7 @@ public class QuestionDetailsActivity extends AppActivity implements View.OnClick
 
     public void addQuestionApi(String id, String ans) {
         if (Utility.getInstance().checkInternetConnection(mContext)) {
-            APIService.getInstance().init().UpdateAnswerForQuestion("2", ans, "1", "4")
+            APIService.getInstance().init().UpdateAnswerForQuestion(id, ans, SessionManager.getInstance(mContext).getUserId(), "4")
                     .enqueue(new APICallBack<MenuModel>() {
                         @Override
                         protected void success(MenuModel model, Call<MenuModel> request) {
@@ -167,7 +169,6 @@ public class QuestionDetailsActivity extends AppActivity implements View.OnClick
     // TODO: 5/10/19 event from home fragment
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EventBusData event) {
-
         QuestionDataModel.QuestionModel model = (QuestionDataModel.QuestionModel) event.getObj1();
         ansList = model.getAnswers();
         qus_id = model.getId();
@@ -175,7 +176,6 @@ public class QuestionDetailsActivity extends AppActivity implements View.OnClick
         txt_qustion_no.setText(model.getId());
         Debug.printLogError("", model.getQuestion());
 
-        //  ansList = databaseHandler.fetchAnswer(qus_id);
         if (ansList.size() > 0) {
             Debug.printLogError(TAG, "-----------anser not" + model.getAnswers());
 
@@ -186,7 +186,6 @@ public class QuestionDetailsActivity extends AppActivity implements View.OnClick
         } else {
             rel_checkbox.setVisibility(View.VISIBLE);
             recycler_answer.setVisibility(View.GONE);
-            Toast.makeText(mContext, "samething rong", Toast.LENGTH_SHORT).show();
         }
 
     }
