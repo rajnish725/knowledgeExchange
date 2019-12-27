@@ -1,5 +1,6 @@
 package in.royalguru.knowledgeExchange.modules.QuestionDetails;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
@@ -49,6 +50,7 @@ public class QuestionDetailsActivity extends AppActivity implements View.OnClick
     private CheckBox checkbox_yes;
     private ImageView img_share;
     private String qus_id = null;
+    private ProgressDialog pDialog;
     private Button btn_save;
     private DatabaseHandler databaseHandler;
 
@@ -131,10 +133,19 @@ public class QuestionDetailsActivity extends AppActivity implements View.OnClick
 
     public void addQuestionApi(String id, String ans) {
         if (Utility.getInstance().checkInternetConnection(mContext)) {
+
+            pDialog = new ProgressDialog(mContext);
+            pDialog.setMessage("Please wait...");
+            pDialog.setIndeterminate(false);
+            pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            pDialog.setCanceledOnTouchOutside(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
             APIService.getInstance().init().UpdateAnswerForQuestion(id, ans, SessionManager.getInstance(mContext).getUserId(), "4")
                     .enqueue(new APICallBack<MenuModel>() {
                         @Override
                         protected void success(MenuModel model, Call<MenuModel> request) {
+                            closeProgressDialog();
                             if (model.getStatus().equals(ServerConstants.SUCCESS_RESPONSE)) {
                                 Toast.makeText(mContext, "updated answer", Toast.LENGTH_SHORT).show();
                             } else {
@@ -144,22 +155,30 @@ public class QuestionDetailsActivity extends AppActivity implements View.OnClick
 
                         @Override
                         protected void failure(String errorMsg, int responseCode) {
+                            closeProgressDialog();
 
                         }
 
                         @Override
                         protected void onFailure(String failureReason) {
+                            closeProgressDialog();
 
                         }
 
                         @Override
                         protected void closeProgressDialog() {
+                            if (pDialog != null) {
+                                pDialog.dismiss();
+                                pDialog = null;
+                            }
+
 
                         }
 
                         @Override
                         protected void sessionTimeout() {
 
+                            closeProgressDialog();
                         }
                     });
         }

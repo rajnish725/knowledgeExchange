@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -33,20 +36,19 @@ import retrofit2.Call;
  * Created by Kalmeshwar on 27 Sep 2019 at 15:22.
  */
 public class FragmentHome extends AppFragment implements OnItemClickListener {
-
     final String TAG = FragmentHome.class.getSimpleName();
 
-    private AppOperationsListener operationsListener;
-    private Context mContext;
-    private static final String SWIPE = "SWIPE";
-
-    private HomeAdapter homeAdapter;
-    SwipeRefreshLayout swipe_refress;
-    private RecyclerView recycler_home;
     private ArrayList<QuestionDataModel.QuestionModel> questionList;
     QuestionDataModel.QuestionModel questionModel = null;
-    private ProgressDialog pDialog;
+    private AppOperationsListener operationsListener;
+    private static final String SWIPE = "SWIPE";
+    private RecyclerView recycler_home;
+    private HomeAdapter homeAdapter;
+    SwipeRefreshLayout swipe_refress;
     private DatabaseHandler dbHelper;
+    private ProgressDialog pDialog;
+    private TextView txt_refresh;
+    private Context mContext;
     private String str_id;
 
     public static FragmentHome newInstance(AppOperationsListener operationsListener, Context mContext, String id) {
@@ -55,11 +57,6 @@ public class FragmentHome extends AppFragment implements OnItemClickListener {
         fragment.mContext = mContext;
         fragment.str_id = id;
         return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
 
@@ -77,6 +74,7 @@ public class FragmentHome extends AppFragment implements OnItemClickListener {
 
     @Override
     protected void initUI(View view) {
+        txt_refresh = view.findViewById(R.id.txt_refresh);
         recycler_home = view.findViewById(R.id.recycler_home);
 
         swipe_refress = view.findViewById(R.id.swipe_refress);
@@ -203,11 +201,7 @@ public class FragmentHome extends AppFragment implements OnItemClickListener {
 
             @Override
             protected void onFailure(String failureReason) {
-                if (pDialog != null) {
-                    pDialog.dismiss();
-                    pDialog = null;
-                }
-
+                closeDialog();
 
             }
 

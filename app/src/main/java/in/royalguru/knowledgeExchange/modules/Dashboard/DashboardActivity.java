@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -20,8 +19,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.greenrobot.eventbus.EventBus;
@@ -94,7 +91,6 @@ public class DashboardActivity extends AppActivity implements View.OnClickListen
 
     @Override
     protected void initUI() {
-
         manager = new SessionManager(mContext);
 
         txt_user_name = findViewById(R.id.txt_user_name);
@@ -108,25 +104,16 @@ public class DashboardActivity extends AppActivity implements View.OnClickListen
         txt_menu_name_1 = findViewById(R.id.txt_menu_name_1);
         drawer_layout = findViewById(R.id.drawer_layout);
         recycler_menu = findViewById(R.id.recycler_menu);
-
         //   addMenuData();
         img_menu.setOnClickListener(this);
         img_share.setOnClickListener(this);
         img_share.setVisibility(View.VISIBLE);
         recycler_menu.setLayoutManager(new LinearLayoutManager(mContext));
-
-
         if (Utility.getInstance().checkInternetConnection(mContext)) {
-
             getAllCategory();
-
         } else {
             addMenuListToRecyclerView(ApplicationDetails.getInstance().getGetCategoryList());
-
-
         }
-
-
     }
 
 
@@ -134,7 +121,6 @@ public class DashboardActivity extends AppActivity implements View.OnClickListen
     protected void postInitializeMethod() {
 
         openDashboardFragment(FragmentHome.newInstance(this, mContext, ""));
-        img_menu.setOnClickListener(this);
         if (new SessionManager(mContext).isLoggedIn()) {
             txt_email.setText(AppSessionData.getInstance().getUseremail());
 
@@ -175,14 +161,11 @@ public class DashboardActivity extends AppActivity implements View.OnClickListen
 
     void setMenuData(ArrayList<MenuModel> menuList1) {
 
-
         new DatabaseHandler(mContext).saveCategoryList(menuList1);
         ApplicationDetails.getInstance().setGetCategoryList(menuList1);
 
         menuList1.add(0, new MenuModel(0, "Home", EnumClicks.HOME));
         addMenuListToRecyclerView(menuList1);
-
-
     }
 
     private void setData(QuestionDataModel model) {
@@ -224,6 +207,7 @@ public class DashboardActivity extends AppActivity implements View.OnClickListen
                 break;
         }
     }
+
     public void dialogBox() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("Are you sure ?");

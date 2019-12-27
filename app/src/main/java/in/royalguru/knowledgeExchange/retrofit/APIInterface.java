@@ -63,7 +63,7 @@ public interface APIInterface {
 
     @FormUrlEncoded
     @POST("post-answer")
-    Call<MenuModel> UpdateAnswerForQuestion(@Field("quest_id") String quest_id,
+    Call<MenuModel> UpdateAnswerForQuestion(@Field("question_id") String quest_id,
                                             @Field("answer") String answer,
                                             @Field("posted_by") String posted_by,
                                             @Field("priority") String priority);
