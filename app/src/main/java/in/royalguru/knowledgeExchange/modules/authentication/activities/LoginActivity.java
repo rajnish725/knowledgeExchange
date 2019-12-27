@@ -69,7 +69,6 @@ public class LoginActivity extends AppActivity implements GoogleApiClient.OnConn
     protected void initUI() {
 
         btn_sign_in = findViewById(R.id.btn_sign_in);
-        btn_logout = findViewById(R.id.btn_logout);
         img_logo = findViewById(R.id.img_logo);
 
 
@@ -125,14 +124,14 @@ public class LoginActivity extends AppActivity implements GoogleApiClient.OnConn
             }
         });
 
-        btn_logout.setOnClickListener(new View.OnClickListener() {
+      /*  btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(mContext, "hii", Toast.LENGTH_SHORT).show();
                 GoogleLogin.getInstance(mContext).init(mContext, LoginActivity.this);
                 GoogleLogin.getInstance(mContext).signIn(LoginActivity.this);
             }
-        });
+        });*/
 
 
     }

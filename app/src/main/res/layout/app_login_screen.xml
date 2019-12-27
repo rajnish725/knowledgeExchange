@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_main_background"
@@ -69,35 +70,45 @@
             android:layout_height="@dimen/_70sdp"
             android:layout_below="@+id/txt_app_name"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_15sdp"
             android:contentDescription="guru"
             android:scaleType="fitXY"
-            android:layout_marginTop="@dimen/_15sdp"
 
-            android:src="@drawable/common_google_signin_btn_icon_light_normal" />
+            android:src="@mipmap/ic_launcher" />
 
     </RelativeLayout>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
         android:layout_weight="0.7"
-        android:gravity="bottom"
-        android:orientation="horizontal"
-        android:padding="@dimen/_20sdp"
-        android:weightSum="2">
+        android:padding="@dimen/_10sdp">
 
-        <Button
-            android:id="@+id/btn_logout"
-            style="@style/font_roboto_medium"
-            android:layout_width="0dp"
+
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:visibility="gone"
-            android:background="@drawable/common_google_signin_btn_text_light_focused"
-            android:text="logout"
-            android:textAllCaps="false"
+            android:layout_above="@+id/btn_sign_in"
+            android:layout_centerHorizontal="true"
+            android:text="we are not saving anything ,feel free to use!"
+            android:textAlignment="center"
+            android:textColor="@color/white"
             android:textSize="@dimen/_8sdp" />
+
+        <!--   <Button
+               android:id="@+id/btn_logout"
+               style="@style/font_roboto_medium"
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:background="@drawable/common_google_signin_btn_text_light_focused"
+               android:text="logout"
+               android:textAllCaps="false"
+               android:textSize="@dimen/_8sdp"
+               android:visibility="gone"
+               tools:visibility="visible" />-->
         <!--
                 <Button
                     android:id="@+id/btn_facebook"
@@ -113,12 +124,14 @@
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/btn_sign_in"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            style="@style/font_playfair_regular"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+
+            android:layout_alignParentBottom="true" />
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

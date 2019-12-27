@@ -65,7 +65,7 @@ dependencies {
     implementation 'com.airbnb.android:lottie:3.0.7'
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation 'com.chaos.view:pinview:1.4.1'
-    implementation "com.airbnb.android:lottie:v2.7.0"
+    implementation "com.airbnb.android:lottie:1.0.1"
     implementation 'com.razorpay:checkout:1.5.5'
 }
 apply plugin: 'com.google.gms.google-services'

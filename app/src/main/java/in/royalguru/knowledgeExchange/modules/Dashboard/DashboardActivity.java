@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -72,9 +73,7 @@ public class DashboardActivity extends AppActivity implements View.OnClickListen
     SessionManager manager;
     RecyclerView recycler_menu;
     private MenuAdapter adapter;
-    boolean menuOpen = true;
     private Context mContext;
-    GoogleSignInClient mGoogleSignInClient;
     FloatingActionButton fab_button;
     private ProgressDialog pDialog;
 
@@ -112,7 +111,7 @@ public class DashboardActivity extends AppActivity implements View.OnClickListen
         if (Utility.getInstance().checkInternetConnection(mContext)) {
             getAllCategory();
         } else {
-            addMenuListToRecyclerView(ApplicationDetails.getInstance().getGetCategoryList());
+            addMenuListToRecyclerView(new MenuModel().addMenuData());
         }
     }
 
@@ -126,7 +125,6 @@ public class DashboardActivity extends AppActivity implements View.OnClickListen
 
             txt_user_name.setText(AppSessionData.getInstance().getUserName());
         }
-
         replaceFragment("ALL");
 
 //        openDashboardFragment(FragmentHome.newInstance(this, mContext, questionList));
@@ -168,14 +166,6 @@ public class DashboardActivity extends AppActivity implements View.OnClickListen
         addMenuListToRecyclerView(menuList1);
     }
 
-    private void setData(QuestionDataModel model) {
-
-        questionList = model.getQuestionModelList();
-
-
-    }
-
-
     // open fragment
     private void openDashboardFragment(Fragment fragment) {
         androidx.fragment.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -188,11 +178,12 @@ public class DashboardActivity extends AppActivity implements View.OnClickListen
         switch (v.getId()) {
 
             case R.id.img_menu:
-                if (drawer_layout.isShown()) {
+              /*  if (drawer_layout.isShown()) {
                     drawer_layout.closeDrawers();
-                } else {
+                } else if (drawer_layout.isDrawerOpen(GravityCompat.END)) {
                     drawer_layout.openDrawer(GravityCompat.START);
-                }
+                }*/
+                drawer_layout.openDrawer(GravityCompat.START);
                 break;
 
             // logout
@@ -323,6 +314,7 @@ public class DashboardActivity extends AppActivity implements View.OnClickListen
                     closeDialog();
                     if (model.getStatus().equalsIgnoreCase(ServerConstants.SUCCESS_RESPONSE)) {
 
+
                     } else {
                         Toast.makeText(mContext, "oops something wrong...!!", Toast.LENGTH_SHORT).show();
 
@@ -383,7 +375,6 @@ public class DashboardActivity extends AppActivity implements View.OnClickListen
 
 
     void addMenuListToRecyclerView(ArrayList<MenuModel> menuList) {
-
         //    Debug.printLogError(TAG, "status success0-----------" + menuList.get(1).getName());
         adapter = new MenuAdapter(mContext, menuList, this);
         recycler_menu.setAdapter(adapter);

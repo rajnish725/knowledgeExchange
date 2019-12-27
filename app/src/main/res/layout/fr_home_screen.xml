@@ -15,7 +15,9 @@
             android:id="@+id/recycler_home"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:background="@color/black2"
+            android:overScrollMode="never"
             tools:listitem="@layout/question_row" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

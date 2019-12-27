@@ -231,6 +231,8 @@ public class FragmentHome extends AppFragment implements OnItemClickListener {
     getDataFromDatabase() {
         if (Utility.getInstance().checkInternetConnection(mContext)) {
             getAllQuestion(str_id);
+            homeAdapter = new HomeAdapter(mContext, dbHelper.fetchAllQuestionData(), this);
+            recycler_home.setAdapter(homeAdapter);
         } else {
             homeAdapter = new HomeAdapter(mContext, dbHelper.fetchAllQuestionData(), this);
             recycler_home.setAdapter(homeAdapter);

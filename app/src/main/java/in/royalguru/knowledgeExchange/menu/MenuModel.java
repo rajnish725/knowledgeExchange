@@ -19,6 +19,9 @@ public class MenuModel {
     private String status;
 
 
+    public MenuModel() {
+    }
+
     public MenuModel(int icon, String name, EnumClicks clicks) {
         this.icon = icon;
         this.name = name;
@@ -107,5 +110,6 @@ public class MenuModel {
 
         return menuList;
     }
+
 
 }

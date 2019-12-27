@@ -164,6 +164,7 @@
         android:layout_below="@+id/rel_checkbox"
         android:layout_marginTop="@dimen/_10sdp"
         android:minHeight="@dimen/_30sdp"
+        android:overScrollMode="never"
         android:visibility="gone"
         tools:listitem="@layout/answer_row"
         tools:visibility="visible" />

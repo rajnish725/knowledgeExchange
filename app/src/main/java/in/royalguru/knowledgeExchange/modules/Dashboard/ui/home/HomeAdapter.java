@@ -62,7 +62,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
 
 
         holder.itemView.setOnClickListener(v -> {
-            Debug.printLogError("tatt   ", holder.ratingBar.getRating() + "    number");
             itemClickListener.onItemClickListener(CELL_CLICK, null, position, questionList.get(holder.getAdapterPosition()),
                     "", null, false);
 //                itemClickListener.onItemClickListener(CELL_CLICK, null, position, holder.ratingBar.getNumStars(), null, null, false);
@@ -72,7 +71,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
         holder.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
-                Toast.makeText(mContext, "Your Selected Ratings  : " + String.valueOf(rating), Toast.LENGTH_LONG).show();
                 itemClickListener.onItemClickListener(RATTING, null, position, questionList.get(holder.getAdapterPosition()),
                         rating, null, false);
 
