@@ -64,6 +64,7 @@ public class QuestionDataModel {
 
         private String cat_id;
         private String cat_name;
+        private boolean isSelected = false;
 
 
         public String getCat_id() {
@@ -72,6 +73,14 @@ public class QuestionDataModel {
 
         public void setCat_id(String cat_id) {
             this.cat_id = cat_id;
+        }
+
+        public boolean isSelected() {
+            return isSelected;
+        }
+
+        public void setSelected(boolean selected) {
+            isSelected = selected;
         }
 
         public String getCat_name() {

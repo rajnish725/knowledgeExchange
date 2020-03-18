@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
@@ -13,7 +14,9 @@ import in.royalguru.knowledgeExchange.R;
 /**
  * Created by Kalmeshwar on 03 Jul 2019 at 11:33.
  */
-public class SelectorLayout extends RelativeLayout {
+public class SelectorLayout extends LinearLayout {
+    private View selection_view;
+
     public SelectorLayout(Context mContext) {
         super(mContext);
         initComponents(mContext, null);
@@ -32,7 +35,7 @@ public class SelectorLayout extends RelativeLayout {
     private void initComponents(Context mContext, AttributeSet attrs) {
         View itemView = inflate(getContext(), R.layout.comp_selector_layout, null);
 
-        View selection_view = itemView.findViewById(R.id.selection_view);
+        selection_view = itemView.findViewById(R.id.selection_view);
 
         TypedArray styledAttributes = mContext.getTheme().obtainStyledAttributes(
                 attrs, R.styleable.SelectorLayout, 0, 0);
@@ -42,7 +45,7 @@ public class SelectorLayout extends RelativeLayout {
         try {
             isVisibleSelector = styledAttributes.getInteger(R.styleable.SelectorLayout_selector_visibility, 0);
 
-            selection_view.setVisibility((isVisibleSelector == 1) ? View.VISIBLE : View.GONE);
+            setSelectorVisibility(isVisibleSelector == 0);
 
 //            edt_content.setHint(hintText);
 //            txt_widget_title.setText(title_text);
@@ -71,5 +74,9 @@ public class SelectorLayout extends RelativeLayout {
         }
 
         addView(itemView);
+    }
+
+    public void setSelectorVisibility(boolean isVisible) {
+        selection_view.setVisibility((isVisible) ? View.VISIBLE : View.GONE);
     }
 }

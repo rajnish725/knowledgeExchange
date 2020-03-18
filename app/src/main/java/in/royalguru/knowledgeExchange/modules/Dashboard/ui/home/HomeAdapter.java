@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import in.kalmesh.projectbase.Debug;
 import in.royalguru.knowledgeExchange.R;
+import in.royalguru.knowledgeExchange.components.SelectorLayout;
 import in.royalguru.knowledgeExchange.listeners.OnItemClickListener;
 
 import static in.royalguru.knowledgeExchange.enums.EnumClicks.CELL_CLICK;
@@ -50,6 +51,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
     public void onBindViewHolder(@NonNull HomeHolder holder, int position) {
 
         QuestionDataModel.QuestionModel questionModel = questionList.get(position);
+        if (questionModel.isSelected()) {
+            holder.selector_layout.setSelectorVisibility(true);
+        } else {
+            holder.selector_layout.setSelectorVisibility(false);
+        }
+
+
         holder.txt_question.setText(questionModel.getQuestion());
         holder.txt_post_by.setText(questionModel.getPostedBy());
 
@@ -71,8 +79,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
         holder.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
-                itemClickListener.onItemClickListener(RATTING, null, position, questionList.get(holder.getAdapterPosition()),
-                        rating, null, false);
+                Debug.printLogError(TAG, "onRatingChanged: " + rating);
+                if (fromUser)
+                    itemClickListener.onItemClickListener(RATTING, null, position, questionList.get(holder.getAdapterPosition()),
+                            rating, null, false);
 
             }
         });
@@ -85,6 +95,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
 
     class HomeHolder extends RecyclerView.ViewHolder {
         TextView txt_question, txt_post_by;
+        SelectorLayout selector_layout;
 
 
         RatingBar ratingBar;
@@ -95,7 +106,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
             ratingBar = itemView.findViewById(R.id.ratingBar);
             txt_question = itemView.findViewById(R.id.txt_question);
             txt_post_by = itemView.findViewById(R.id.txt_post_by);
-
+            selector_layout = itemView.findViewById(R.id.selector_layout);
         }
     }
 }

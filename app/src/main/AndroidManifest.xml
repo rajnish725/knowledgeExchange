@@ -33,13 +33,22 @@
         <activity
             android:name=".modules.addNewQuestion.AddNewQuestionActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".modules.quiz.activities.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".modules.quiz.activities.QuestionsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".modules.quiz.activities.ResultActivity"
+            android:screenOrientation="portrait" />
         <!--
-    live api key
-    rzp_live_B116VzltNAdyXJ
+live api key
+rzp_live_B116VzltNAdyXJ
 
-   test key
-    rzp_test_3NP5bH3nWSOa54
-        -->
+test key
+rzp_test_3NP5bH3nWSOa54
+-->
         <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_test_3NP5bH3nWSOa54" />

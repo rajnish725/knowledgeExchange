@@ -22,11 +22,11 @@
         <ImageView
             android:id="@+id/img_profile"
             android:layout_width="@dimen/_30sdp"
+            android:elevation="@dimen/_7sdp"
             android:layout_height="@dimen/_30sdp"
-            android:background="@drawable/bg_white_stroke_trn_rounded"
             android:contentDescription="PROFILE"
             android:padding="@dimen/_3sdp"
-            android:src="@drawable/temp_zwing_logo" />
+            android:src="@mipmap/ic_launcher" />
 
         <LinearLayout
             android:layout_width="match_parent"

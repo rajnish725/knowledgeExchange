@@ -73,6 +73,7 @@ public class AddNewQuestionActivity extends AppActivity implements View.OnClickL
     @Override
     protected void preInitializeMethod() {
         mContext = this;
+        overridePendingTransition(R.anim.slide_in_normal, R.anim.slide_out_normal);
 
     }
 
@@ -389,5 +390,10 @@ public class AddNewQuestionActivity extends AppActivity implements View.OnClickL
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
 
+        overridePendingTransition(R.anim.slide_in_reverse, R.anim.slide_out_reverse);
+    }
 }

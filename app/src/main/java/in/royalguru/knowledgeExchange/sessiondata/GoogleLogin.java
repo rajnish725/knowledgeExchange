@@ -16,6 +16,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import in.kalmesh.projectbase.Debug;
 
@@ -52,12 +54,12 @@ public class GoogleLogin implements GoogleApiClient.OnConnectionFailedListener {
         mActivity.startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    public boolean signOut(Context mContext) {
+    public boolean signOut(Activity mActivity) {
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                 status -> {
                     Debug.printLogError(TAG, "logout: " + status.toString());
 //                        updateUI(false);
-                    revokeAccess();
+                    revokeAccess(mActivity);
                 });
 
         return true;
@@ -74,13 +76,22 @@ public class GoogleLogin implements GoogleApiClient.OnConnectionFailedListener {
                 });
     }*/
 
-    public static void revokeAccess() {
+  /*  public static void revokeAccess() {
         Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient)
                 .setResultCallback(status -> {
 
 
-                });
+                });*/
 
+
+    private void revokeAccess(Activity mActivity) {
+        mgooglSignClient.revokeAccess()
+                .addOnCompleteListener(mActivity, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // ...
+                    }
+                });
     }
 
     @Override
@@ -89,7 +100,7 @@ public class GoogleLogin implements GoogleApiClient.OnConnectionFailedListener {
     }
 
 
-    public boolean logout() {
+    public boolean logout(Activity mActivity) {
 
         mGoogleApiClient.connect();
         mGoogleApiClient.registerConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
@@ -104,6 +115,7 @@ public class GoogleLogin implements GoogleApiClient.OnConnectionFailedListener {
                             if (status.isSuccess()) {
                                 Log.d(TAG, "User Logged out");
                                 isLogout = true;
+                                revokeAccess(mActivity);
                             }
                         }
                     });

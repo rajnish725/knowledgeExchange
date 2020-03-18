@@ -2,19 +2,15 @@ package in.royalguru.knowledgeExchange.modules.Dashboard.ui.home;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -44,7 +40,7 @@ public class FragmentHome extends AppFragment implements OnItemClickListener {
     private static final String SWIPE = "SWIPE";
     private RecyclerView recycler_home;
     private HomeAdapter homeAdapter;
-    SwipeRefreshLayout swipe_refress;
+    private SwipeRefreshLayout swipe_refress;
     private DatabaseHandler dbHelper;
     private ProgressDialog pDialog;
     private TextView txt_refresh;
@@ -82,6 +78,7 @@ public class FragmentHome extends AppFragment implements OnItemClickListener {
         dbHelper = new DatabaseHandler(mContext);
         Debug.printLogError(TAG, "open fragments");
         recycler_home.setLayoutManager(new LinearLayoutManager(mContext));
+
     }
 
 
@@ -111,37 +108,37 @@ public class FragmentHome extends AppFragment implements OnItemClickListener {
         // operationsListener.onListenOperation(ScreenTypes.SWIPE, null, null, SWIPE, false);
 
         swipe_refress.setOnRefreshListener(() -> {
-
+            swipe_refress.setRefreshing(true);
             getDataFromDatabase();
-            swipe_refress.setRefreshing(false);
         });
 
     }
 
     @Override
     public void onItemClickListener(EnumClicks where, View view, int position, Object obj1, Object obj2, Object obj3, boolean isChecked) {
-
         switch (where) {
             case CELL_CLICK:
+                for (int i = 0; i < questionList.size(); i++) {
+                    QuestionDataModel.QuestionModel model = questionList.get(position);
+
+                    if (i == position) {
+                        model.setSelected(true);
+                    } else {
+                        model.setSelected(false);
+                    }
+                }
+                homeAdapter.notifyDataSetChanged();
                 operationsListener.onListenOperation(ScreenTypes.HOME, position, obj1, "" + position, false);
                 break;
-
-
             case RATTING:
                 for (int i = 0; i < questionList.size(); i++) {
                     questionModel = questionList.get(i);
                     if (position == i) {
-
                         operationsListener.onListenOperation(ScreenTypes.RATTING, questionModel.getId(), obj1, obj2.toString(), false);
-
                     }
                 }
-
-
                 break;
         }
-
-
     }
 
     private void setData(QuestionDataModel model) {
@@ -149,10 +146,9 @@ public class FragmentHome extends AppFragment implements OnItemClickListener {
             boolean row_affected = dbHelper.saveQuestionData(model, mContext);
             if (row_affected) {
                 questionList = model.getQuestionModelList();
-                recycler_home.setLayoutManager(new LinearLayoutManager(mContext));
+                setDataToAdapter();
 //        recycler_home.setHasFixedSize(true);
-                homeAdapter = new HomeAdapter(mContext, questionList, this);
-                recycler_home.setAdapter(homeAdapter);
+
             } else {
                 Debug.printLogError(TAG, " oops some thing went wrong");
 
@@ -179,10 +175,7 @@ public class FragmentHome extends AppFragment implements OnItemClickListener {
             @Override
             protected void success(QuestionDataModel model, Call<QuestionDataModel> request) {
 
-                if (pDialog != null) {
-                    pDialog.dismiss();
-                    pDialog = null;
-                }
+                closeDialog();
                 if (model.getStatus().equalsIgnoreCase(ServerConstants.SUCCESS_RESPONSE)) {
                     setData(model);
                 } else {
@@ -192,10 +185,7 @@ public class FragmentHome extends AppFragment implements OnItemClickListener {
 
             @Override
             protected void failure(String errorMsg, int responseCode) {
-                if (pDialog != null) {
-                    pDialog.dismiss();
-                    pDialog = null;
-                }
+                closeDialog();
 
             }
 
@@ -208,10 +198,7 @@ public class FragmentHome extends AppFragment implements OnItemClickListener {
             @Override
             protected void closeProgressDialog() {
 
-                if (pDialog != null) {
-                    pDialog.dismiss();
-                    pDialog = null;
-                }
+                closeDialog();
 
 
             }
@@ -227,16 +214,20 @@ public class FragmentHome extends AppFragment implements OnItemClickListener {
 
     }
 
-    private void
-    getDataFromDatabase() {
+    private void getDataFromDatabase() {
         if (Utility.getInstance().checkInternetConnection(mContext)) {
             getAllQuestion(str_id);
-            homeAdapter = new HomeAdapter(mContext, dbHelper.fetchAllQuestionData(), this);
-            recycler_home.setAdapter(homeAdapter);
         } else {
-            homeAdapter = new HomeAdapter(mContext, dbHelper.fetchAllQuestionData(), this);
-            recycler_home.setAdapter(homeAdapter);
+            questionList = dbHelper.fetchAllQuestionData();
+
+            setDataToAdapter();
         }
+        swipe_refress.setRefreshing(false);
+    }
+
+    private void setDataToAdapter() {
+        homeAdapter = new HomeAdapter(mContext, questionList, this);
+        recycler_home.setAdapter(homeAdapter);
     }
 
     private void closeDialog() {

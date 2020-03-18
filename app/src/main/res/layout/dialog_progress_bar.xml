@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.airbnb.lottie.LottieAnimationView
+    <!--<com.airbnb.lottie.LottieAnimationView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -12,5 +12,5 @@
         app:lottie_colorFilter="@color/white"
         app:lottie_loop="true"
         app:lottie_scale="0.2"
-        app:lottie_rawRes="@raw/zwing_progress"/>
+        app:lottie_rawRes="@raw/zwing_progress"/>-->
 </RelativeLayout>

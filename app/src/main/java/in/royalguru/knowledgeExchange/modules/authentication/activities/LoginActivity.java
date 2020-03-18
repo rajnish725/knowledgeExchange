@@ -143,7 +143,7 @@ public class LoginActivity extends AppActivity implements GoogleApiClient.OnConn
     }
 
     private void signOut() {
-        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+       /* Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(Status status) {
@@ -151,7 +151,10 @@ public class LoginActivity extends AppActivity implements GoogleApiClient.OnConn
 //                        updateUI(false);
                         GoogleLogin.getInstance(LoginActivity.this).revokeAccess();
                     }
-                });
+                });*/
+
+        GoogleLogin.getInstance(mContext).init(mContext, LoginActivity.this);
+        GoogleLogin.getInstance(mContext).signIn(LoginActivity.this);
     }
 
     @Override

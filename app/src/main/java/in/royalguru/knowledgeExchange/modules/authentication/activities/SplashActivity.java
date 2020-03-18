@@ -36,8 +36,6 @@ public class SplashActivity extends AppCompatActivity {
 
 
         new Handler().postDelayed(new Runnable() {
-
-
             @Override
             public void run() {
                 // This method will be executed once the timer is over
@@ -45,7 +43,7 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(i);
                 finish();
             }
-        }, 5000);
+        }, 200);
 
 
      /*   Intent intent = null;

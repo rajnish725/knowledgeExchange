@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -19,7 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.greenrobot.eventbus.EventBus;
@@ -40,9 +39,9 @@ import in.royalguru.knowledgeExchange.menu.MenuModel;
 import in.royalguru.knowledgeExchange.modules.Dashboard.ui.home.FragmentHome;
 import in.royalguru.knowledgeExchange.modules.Dashboard.ui.home.QuestionDataModel;
 import in.royalguru.knowledgeExchange.modules.QuestionDetails.QuestionDetailsActivity;
-import in.royalguru.knowledgeExchange.modules.addNewQuestion.AddNewQuestionActivity;
 import in.royalguru.knowledgeExchange.modules.addNewQuestion.addNewQuestionModel;
 import in.royalguru.knowledgeExchange.modules.authentication.activities.LoginActivity;
+import in.royalguru.knowledgeExchange.modules.quiz.activities.MainActivity;
 import in.royalguru.knowledgeExchange.retrofit.APICallBack;
 import in.royalguru.knowledgeExchange.retrofit.APIService;
 import in.royalguru.knowledgeExchange.retrofit.ServerConstants;
@@ -103,6 +102,7 @@ public class DashboardActivity extends AppActivity implements View.OnClickListen
         txt_menu_name_1 = findViewById(R.id.txt_menu_name_1);
         drawer_layout = findViewById(R.id.drawer_layout);
         recycler_menu = findViewById(R.id.recycler_menu);
+
         //   addMenuData();
         img_menu.setOnClickListener(this);
         img_share.setOnClickListener(this);
@@ -137,7 +137,7 @@ public class DashboardActivity extends AppActivity implements View.OnClickListen
                     Intent intent = new Intent(mContext, LoginActivity.class);
                     startActivity(intent);
                 } else {
-                    Intent intent = new Intent(mContext, AddNewQuestionActivity.class);
+                    Intent intent = new Intent(mContext, MainActivity.class);
                     startActivity(intent);
                 }
 
@@ -208,7 +208,7 @@ public class DashboardActivity extends AppActivity implements View.OnClickListen
                     public void onClick(DialogInterface arg0, int arg1) {
                         try {
                             GoogleLogin.getInstance(mContext).init(mContext, DashboardActivity.this);
-                            boolean isLogout = GoogleLogin.getInstance(mContext).logout();
+                            boolean isLogout = GoogleLogin.getInstance(mContext).logout(DashboardActivity.this);
 
                             manager.clearUserSession();
                             txt_user_name.setText("USER");
@@ -216,10 +216,9 @@ public class DashboardActivity extends AppActivity implements View.OnClickListen
 
 
                             if (isLogout) {
-
                                 new SessionManager(mContext).clearUserSession();
                             } else {
-                                Toast.makeText(mContext, "something went woring", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, "something went wrong Its seems logout.", Toast.LENGTH_SHORT).show();
                             }
 
                         } catch (Exception e) {
@@ -250,11 +249,11 @@ public class DashboardActivity extends AppActivity implements View.OnClickListen
         switch (screenType) {
 
             case ON_SCROLL:
-                if (isChecked) {
-                    fab_button.hide();
-                } else {
-                    fab_button.show();
-                }
+//                if (isChecked) {
+//                    fab_button.hide();
+//                } else {
+//                    fab_button.show();
+//                }
                 break;
 
             case HOME:
